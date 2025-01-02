@@ -1,14 +1,24 @@
 const { Server } = require("socket.io");
+const http = require("http");
 
-const io = new Server(8008, {
+// Create an HTTP server
+const app = http.createServer();
+const io = new Server(app, {
   cors: {
-    origin: "*",
+    origin: "*", // You can specify your front-end domain here instead of "*"
   },
 });
 
+// Listen on port 8008 for HTTP connections
+app.listen(8008, () => {
+  console.log("Server listening on port 8008 (HTTP)");
+});
+
+// Store mappings for email and socket IDs
 const emailToSocketIdMap = new Map();
 const socketidToEmailMap = new Map();
 
+// WebSocket event handling
 io.on("connection", (socket) => {
   console.log(`Socket Connected`, socket.id);
 
