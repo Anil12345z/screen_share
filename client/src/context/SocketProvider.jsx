@@ -9,7 +9,16 @@ export const useSocket = () => {
 };
 
 export const SocketProvider = (props) => {
-  const socket = useMemo(() => io("localhost:8000"), []);
+  const socket = useMemo(() => io("https://client-4lmh.onrender.com/"), []);
+
+  useEffect(() => {
+    return () => {
+      if (socket) {
+        socket.disconnect();
+        console.log("Socket disconnected");
+      }
+    };
+  }, [socket]);
 
   return (
     <SocketContext.Provider value={socket}>
