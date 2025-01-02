@@ -3,7 +3,8 @@ services:
     type: web
     env: node
     plan: free
-    buildCommand: cd client && npm install && npm run build
+    buildCommand: |
+      cd client && npm install && npm run build
     startCommand: serve -s client/build
     envVars:
       - key: PORT
@@ -14,7 +15,8 @@ services:
     type: web
     env: node
     plan: free
-    buildCommand: cd client && npm install && npm run build && cd ../server && npm install
+    buildCommand: |
+      cd server && npm install
     startCommand: node server/index.js
     envVars:
       - key: PORT
