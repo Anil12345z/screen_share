@@ -1,0 +1,30 @@
+{
+  "name": "fullstack-app",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install": "npm install --workspaces",
+    "build": "npm run build-client && npm run build-server",
+    "start": "npm run start-server",
+    "build-client": "cd client && react-scripts build",
+    "start-client": "serve -s client/build",
+    "build-server": "echo 'No server build step needed'",
+    "start-server": "node server/index.js",
+    "dev": "concurrently \"npm run dev-server\" \"npm run dev-client\"",
+    "dev-client": "cd client && react-scripts start",
+    "dev-server": "cd server && nodemon index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.6.1"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "nodemon": "^2.0.22",
+    "serve": "^14.0.1"
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ]
+}
