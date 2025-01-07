@@ -2,7 +2,7 @@ const { Server } = require("socket.io");
 
 const io = new Server(8008, {
   cors: {
-    origin: ["http://localhost:3000", "https://your-client-domain.com"],
+    origin: ["http://localhost:3000", "https://client-8ktt.onrender.com"],
     methods: ["GET", "POST"],
   },
 });
