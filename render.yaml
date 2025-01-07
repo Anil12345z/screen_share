@@ -1,4 +1,3 @@
-
 services:
   - name: client
     type: web
@@ -6,7 +5,7 @@ services:
     plan: free
     buildCommand: |
       cd client && npm install && npm run build
-    startCommand: cd client && npm start
+    startCommand: npx serve -s client/build -l $PORT
     envVars:
       - key: PORT
         value: 3000
@@ -22,4 +21,4 @@ services:
     envVars:
       - key: PORT
         value: 8008
-    autoDeploy: true   
+    autoDeploy: true
