@@ -11,6 +11,7 @@ services:
         value: 3000
     autoDeploy: true
 
+
   - name: server
     type: web
     env: node
