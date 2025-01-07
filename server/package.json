@@ -4,8 +4,8 @@
   "description": "Socket.IO server for real-time communication",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js", // Production start script
-    "dev": "nodemon index.js" // Development script with nodemon
+    "start": "node index.js", 
+    "dev": "nodemon index.js" 
   },
   "author": "Anil",
   "license": "ISC",
