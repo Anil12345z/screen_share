@@ -1,16 +1,18 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Socket.IO server for real-time communication",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "node index.js", // Production start script
+    "dev": "nodemon index.js" // Development script with nodemon
   },
-  "author": "",
+  "author": "Anil",
   "license": "ISC",
   "dependencies": {
-    "nodemon": "^2.0.22",
     "socket.io": "^4.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }
