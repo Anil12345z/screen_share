@@ -2,7 +2,7 @@ const { Server } = require("socket.io");
 
 const io = new Server(8008, {
   cors: {
-       origin: ["https://client-8ktt.onrender.com"],
+    origin: ["https://client-8ktt.onrender.com"],
     methods: ["GET", "POST"],
   },
 });
@@ -11,8 +11,9 @@ const emailToSocketIdMap = new Map();
 const socketidToEmailMap = new Map();
 
 io.on("connection", (socket) => {
-  console.log(`Socket Connected`, socket.id);
+  console.log(`Socket Connected:`, socket.id);
 
+  // Handle room join
   socket.on("room:join", (data) => {
     const { email, room } = data;
     emailToSocketIdMap.set(email, socket.id);
@@ -22,14 +23,17 @@ io.on("connection", (socket) => {
     io.to(socket.id).emit("room:join", data);
   });
 
+  // Handle user call
   socket.on("user:call", ({ to, offer }) => {
-    io.to(to).emit("incomming:call", { from: socket.id, offer });
+    io.to(to).emit("incoming:call", { from: socket.id, offer });
   });
 
+  // Handle call acceptance
   socket.on("call:accepted", ({ to, ans }) => {
     io.to(to).emit("call:accepted", { from: socket.id, ans });
   });
 
+  // Handle peer negotiation
   socket.on("peer:nego:needed", ({ to, offer }) => {
     console.log("peer:nego:needed", offer);
     io.to(to).emit("peer:nego:needed", { from: socket.id, offer });
@@ -46,6 +50,21 @@ io.on("connection", (socket) => {
     io.to(to).emit("message:received", { from: socket.id, message });
   });
 
+  // Handle user leaving the room
+  socket.on("user:left", (data) => {
+    const email = socketidToEmailMap.get(socket.id);
+    if (email) {
+      console.log(`User ${email} has left the meeting.`);
+      emailToSocketIdMap.delete(email);
+      socketidToEmailMap.delete(socket.id);
+
+      const { room } = data;
+      socket.leave(room);
+      io.to(room).emit("user:left", { email, id: socket.id });
+    }
+  });
+
+  // Handle user disconnection
   socket.on("disconnect", () => {
     const email = socketidToEmailMap.get(socket.id);
     if (email) {
