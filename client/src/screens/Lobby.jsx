@@ -106,7 +106,7 @@ const LobbyScreen = () => {
           {/* Right Column */}
           <div className="p-8 flex items-center justify-center bg-blue-50">
             <img
-              src="../../meeting-room.png"
+              src="meeting-room.png"
               alt="Meeting Illustration"
               className="w-full max-w-sm rounded-lg shadow-lg"
             />
