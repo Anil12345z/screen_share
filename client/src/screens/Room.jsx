@@ -6,8 +6,8 @@ import { useSocket } from "../context/SocketProvider";
 const RoomPage = () => {
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
-  const [myStream, setMyStream] = useState(null);
-  const [remoteStream, setRemoteStream] = useState(null);
+  const [myStream, setMyStream] = useState();
+  const [remoteStream, setRemoteStream] = useState();
   const [screenStream, setScreenStream] = useState(null);
   const [cameraOn, setCameraOn] = useState(true); // Track if the camera is on for the user
   const [micMuted, setMicMuted] = useState(false); // Track if the mic is muted
@@ -91,7 +91,7 @@ const RoomPage = () => {
   }, []);
 
   useEffect(() => {
-    peer.peer.addEventListener("track", (ev) => {
+    peer.peer.addEventListener("track", async (ev) => {
       const [stream] = ev.streams;
       setRemoteStream(stream);
     });
