@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
+import meetingRoomImage from "./meeting-room.png"; // Import the image correctly
 
 const LobbyScreen = () => {
   const [name, setName] = useState("");
@@ -106,7 +107,7 @@ const LobbyScreen = () => {
           {/* Right Column */}
           <div className="p-8 flex items-center justify-center bg-blue-50">
             <img
-              src="meeting-room.png"
+              src={meetingRoomImage} // Use imported image here
               alt="Meeting Illustration"
               className="w-full max-w-sm rounded-lg shadow-lg"
             />
